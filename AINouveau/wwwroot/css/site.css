@@ -4,6 +4,19 @@ html, body {
     font-family: sans-serif
 }
 
+.bg-offwhite {
+    /*background-color: #f5f0e0;*/
+    background-color: #F7F7F7;
+}
+
+.fs-small {
+    font-size: 10px;
+}
+
+.fs-large {
+    font-size: 40px;
+}
+
 .validation-message {
     color: red;
 }
