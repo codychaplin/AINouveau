@@ -1,0 +1,8 @@
+.nav-item {
+    margin-right: 3rem;
+}
+
+::deep .nav-link:hover, ::deep .active {
+    color: black !important;
+    font-weight: 600;
+}
