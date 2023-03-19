@@ -1,0 +1,12 @@
+﻿<div class="tile m-2" style="background-image: url('@ImageUrl');">
+    <p class="fs-4 p-1 text-center text-white bg-faded">@Name</p>
+</div>
+
+@code
+{
+    [Parameter]
+    public string Name { get; set; } = "";
+
+    [Parameter]
+    public string ImageUrl { get; set; } = "../images/default.png";
+}
