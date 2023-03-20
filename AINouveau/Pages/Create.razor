@@ -46,12 +46,14 @@
     {
         try
         {
+            IsGeneratedImageHidden = true;
+            ImageUrl = "";
             IsSubmitButtonDisabled = true;
             var imageResult = await OpenAI.CreateImage(new ImageCreateRequest
             {
                 Prompt = Description,
                 N = 1,
-                Size = StaticValues.ImageStatics.Size.Size256,
+                Size = StaticValues.ImageStatics.Size.Size1024,
                 ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url
             });
 
