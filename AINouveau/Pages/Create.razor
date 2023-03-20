@@ -1,10 +1,71 @@
 ﻿@page "/create"
+@using OpenAI.GPT3;
+@using OpenAI.GPT3.Managers;
+@using OpenAI.GPT3.ObjectModels;
+@using OpenAI.GPT3.ObjectModels.RequestModels;
+@inject IJSRuntime js;
 
 <PageTitle>Create Your Own</PageTitle>
 
-<h3>Create Your Own</h3>
+<div class="container pt-5">
+    <div class="row pt-5">
+
+        <p class="fs-6 text-secondary">Enter a detailed description</p>
+        <form class="form-center" onsubmit="@GenerateImage">
+            <input class="form-control shadow rounded-left" type="text" @bind-value="@Description" @oninput="UpdateBtnSubmit" />
+            <button class="btn btn-dark shadow rounded-right" type="submit" disabled="@IsSubmitButtonDisabled">Generate</button>
+        </form>
+
+        <img class="w-50 mx-auto m-5" src="@ImageUrl" alt="Generated Image" hidden="@IsGeneratedImageHidden" />
+    </div>
+</div>
 
 @code
 {
+    public string Description { get; set; } = "";
+    public string ImageUrl { get; set; } = "";
+    bool IsSubmitButtonDisabled = true;
+    bool IsGeneratedImageHidden = true;
+    OpenAIService OpenAI;
 
+    protected override void OnInitialized()
+    {
+        OpenAI = new OpenAIService(new OpenAiOptions()
+        {
+            ApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY")!
+        });
+    }
+
+    void UpdateBtnSubmit(ChangeEventArgs e)
+    {
+        Description = e.Value.ToString();
+        IsSubmitButtonDisabled = string.IsNullOrWhiteSpace(Description);
+    }
+
+    public async Task GenerateImage()
+    {
+        try
+        {
+            IsSubmitButtonDisabled = true;
+            var imageResult = await OpenAI.CreateImage(new ImageCreateRequest
+            {
+                Prompt = Description,
+                N = 1,
+                Size = StaticValues.ImageStatics.Size.Size256,
+                ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url
+            });
+
+            if (imageResult.Successful)
+            {
+                ImageUrl = imageResult.Results[0].Url;
+            }
+
+            IsGeneratedImageHidden = false;
+            IsSubmitButtonDisabled = false;
+        }
+        catch (Exception ex)
+        {
+            await js.InvokeAsync<object>("alert", ex.Message);
+        }
+    }
 }
