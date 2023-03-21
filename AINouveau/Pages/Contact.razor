@@ -1,10 +1,112 @@
 ﻿@page "/contact"
+@inject IJSRuntime js;
 
-<PageTitle>Contact</PageTitle>
+<PageTitle>Contact Us</PageTitle>
 
-<h3>Contact</h3>
+<div class="container-lg">
+    <div class="row">
+
+        <!-- title -->
+        <div class="col-12 my-5">
+            <p class="fs-1 ls-1 text-uppercase text-center">Contact Us</p>
+        </div>
+
+        <!-- sales -->
+        <div class="col-4 fw-light">
+            <p class="fs-3 ls-1 fw-medium text-uppercase">Sales</p>
+            <p class="fs-5 mb-0">Have a question regarding sales?</p>
+            <p class="fs-5 m-0">
+                <strong>Email:</strong>
+                <a class="text-body" href="mailto:sales@ainouveau.com">sales@ainouveau.com</a>
+            </p>
+            <p class="fs-5">
+                <strong>Phone:</strong>
+                <a class="text-body" href="tel:+18001010110,1">+1 (800) 010 0110 ext.1</a>
+            </p>
+        </div>
+
+        <!-- marketing -->
+        <div class="col-4 fw-light">
+            <p class="fs-3 ls-1 fw-medium text-uppercase">Marketing</p>
+            <p class="fs-5 mb-0">Want to advertise with us?</p>
+            <p class="fs-5 m-0">
+                <strong>Email:</strong>
+                <a class="text-body" href="mailto:marketing@ainouveau.com">marketing@ainouveau.com</a>
+            </p>
+            <p class="fs-5">
+                <strong>Phone:</strong>
+                <a class="text-body" href="tel:+18001010110,2">+1 (800) 010 0110 ext.2</a>
+            </p>
+        </div>
+
+        <!-- orders and returns -->
+        <div class="col-4 fw-light">
+            <p class="fs-3 ls-1 fw-medium text-uppercase">Orders & Returns</p>
+            <p class="fs-5 mb-0">Want to check the status of your order or enquire about returns?</p>
+            <p class="fs-5 m-0">
+                <strong>Email:</strong>
+                <a class="text-body" href="mailto:orders@ainouveau.com">orders@ainouveau.com</a>
+            </p>
+            <p class="fs-5">
+                <strong>Phone:</strong>
+                <a class="text-body" href="tel:+18001010110,3">+1 (800) 010 0110 ext.3</a>
+            </p>
+        </div>
+
+        <hr class="my-5" />
+
+        <!-- general inquires -->
+        <div class="col-12 w-50 mx-auto">
+            <p class="fs-3 ls-1 fw-medium text-uppercase">General Inquires</p>
+            <form class="form-center" onsubmit="@OnSubmit">
+                <div class="row">
+                    <div class="col-6 form-floating my-3">
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" @bind="@FirstName">
+                        <label class="ps-4" for="inputFirstName">First Name</label>
+                    </div>
+                    <div class="col-6 form-floating my-3">
+                        <input type="text" class="form-control" id="inputLastName" placeholder="LastName" @bind="@LastName">
+                        <label class="ps-4" for="inputLastName">Last Name</label>
+                    </div>
+                    <div class="col-6 form-floating">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" @bind="@Email">
+                        <label class="ps-4" for="inputEmail">Email</label>
+                    </div>
+                    <div class="col-6 form-floating">
+                        <input type="text" class="form-control" id="inputName" placeholder="Subject" @bind="@Subject">
+                        <label class="ps-4" for="inputName">Subject</label>
+                    </div>
+                    <div class="col-12 form-floating my-3">
+                        <textarea class="form-control" placeholder="Type here" id="inputMessage" @bind="@Message"></textarea>
+                        <label class="ps-4" for="inputMessage">Message</label>
+                    </div>
+                    <div class="col-12 mb-5 text-center">
+                        <button type="reset" class="btn btn-danger me-3 py-2 px-4">Clear</button>
+                        <button type="submit" class="btn btn-primary py-2 px-4">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
 
 @code
 {
+    public string FirstName { get; set; } = "";
+    public string LastName { get; set; } = "";
+    public string Email { get; set; } = "";
+    public string Subject { get; set; } = "";
+    public string Message { get; set; } = "";
 
+    public async Task OnSubmit()
+    {
+        await js.InvokeAsync<object>("alert", $"Thank you, {FirstName}. We will respond shortly");
+
+        FirstName = "";
+        LastName = "";
+        Email = "";
+        Subject = "";
+        Message = "";
+    }
 }
