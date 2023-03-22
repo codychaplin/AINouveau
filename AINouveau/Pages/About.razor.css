@@ -1,7 +1,7 @@
 ﻿.about-splash {
-    background-image: url('../images/room1.png');
+    background-image: url('../images/pages/room1.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    min-height:600px;
+    min-height: 600px;
 }
