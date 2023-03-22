@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.8.0" />
+    <PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.8.1" />
+    <PackageReference Include="Syncfusion.Blazor.Inputs" Version="20.4.0.54" />
   </ItemGroup>
 
 </Project>

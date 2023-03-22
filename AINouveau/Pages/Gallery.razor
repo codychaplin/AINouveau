@@ -2,9 +2,80 @@
 
 <PageTitle>Gallery</PageTitle>
 
-<h3>Gallery</h3>
+<div class="container-xl">
+    <div class="row">
+        <p class="fs-1 ls-1 text-uppercase text-center mt-5">Gallery</p>
+    </div>
+
+    <div class="d-flex justify-content-between border-bottom p-3">
+        <button class="btn btn-dark d-lg-none fs-5 px-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">Filter</button>
+        <p class="fs-5 my-auto">Number of arts: 123</p>
+        <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle fs-5 px-4" type="button" data-bs-toggle="dropdown">
+                Sort By
+            </button>
+            <ul class="dropdown-menu">
+                <li><button class="dropdown-item" type="button">Recommended</button></li>
+                <li><button class="dropdown-item" type="button">$ - $$$</button></li>
+                <li><button class="dropdown-item" type="button">$$$ - $</button></li>
+                <li><button class="dropdown-item" type="button">A - Z</button></li>
+                <li><button class="dropdown-item" type="button">Z - A</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="offcanvas-lg offcanvas-start sidebar position-absolute" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+        <div class="offcanvas-header">
+            <p class="offcanvas-title" id="sidebarLabel"></p>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-block m-2">
+            <p class="fs-5">Filter by</p>
+            <hr />
+            <p class="fs-5">Type</p>
+            <Checkbox Name="Painting" />
+            <Checkbox Name="Digital Art" />
+            <Checkbox Name="Drawing" />
+            <Checkbox Name="Photography" />
+            <hr />
+            <p class="fs-5">Medium</p>
+            <Checkbox Name="Oil" />
+            <Checkbox Name="Water Colour" />
+            <Checkbox Name="Acrylic" />
+            <Checkbox Name="Pencil" />
+            <hr />
+            <p class="fs-4">Price</p>
+            <div class="row px-1">
+                <div class="col-6">
+                    <label class="fs-5 text-body-secondary" for="inputMin">Min</label>
+                    <input type="text" @bind-value="@Min" readonly="true" class="form-control" id="inputMin">
+
+                </div>
+                <div class="col-6">
+                    <label class="fs-5 text-body-secondary" for="inputMax">Max</label>
+                    <input type="text" @bind-value="@Max" readonly="true" class="form-control" id="inputMax">
+                </div>
+                <div class="col-12 text-center">
+                    <SfSlider ID="slider" Width="200" Type="SliderType.Range" Min="0" Max="10000" Step="100" Value="@RangeValue">
+                        <SliderEvents TValue="int[]" ValueChange="@OnValueChange"></SliderEvents>
+                      </SfSlider>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-1 mb-5 g-2 main-body">
+        <ArtTile />
+    </div>
+</div>
 
 @code
 {
+    public int[] RangeValue { get; set; } = { 0, 10000 };
+    public string Min { get { return RangeValue[0].ToString("C0"); } set { value = Min; } }
+    public string Max { get { return RangeValue[1].ToString("C0"); } set { value = Max; } }
 
+    void OnValueChange(SliderChangeEventArgs<int[]> args)
+    {
+        RangeValue = args.Value;
+    }
 }

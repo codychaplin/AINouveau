@@ -29,6 +29,10 @@ html, body {
     margin-right: 15%;
 }
 
+.ls-1 {
+    letter-spacing: 1px;
+}
+
 @media (max-width: 576px) {
     .thin {
         margin-left: 0;
