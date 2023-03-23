@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using AINouveau.Server.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AINouveauDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("AINouveauDbContext") ?? throw new InvalidOperationException("Connection string 'AINouveauDbContext' not found.")));
 
 // Add services to the container.
 
