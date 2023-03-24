@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AINouveau.Shared;
 
-namespace AINouveau.Server.Data
-{
-    public class AINouveauDbContext : DbContext
-    {
-        public AINouveauDbContext(DbContextOptions<AINouveauDbContext> options) : base(options) { }
+namespace AINouveau.Server.Data;
 
-        public DbSet<ArtWork> ArtWork { get; set; } = default!;
-    }
+public class AINouveauDbContext : DbContext
+{
+    public AINouveauDbContext(DbContextOptions<AINouveauDbContext> options) : base(options) { }
+
+    public DbSet<Artwork> Artwork { get; set; } = default!;
 }

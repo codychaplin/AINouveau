@@ -1,4 +1,5 @@
 ﻿@page "/gallery"
+@inject HttpClient httpClient
 
 <PageTitle>Gallery</PageTitle>
 
@@ -14,15 +15,30 @@
 
     <!-- main content -->
     <div class="row mt-1 mb-5 g-2 main-body">
-        <ArtTile />
-        <ArtTile />
-        <ArtTile />
-        <ArtTile />
-        <ArtTile />
+        @foreach (var art in artworks)
+        {
+            <ArtTile ImageUrl="@art.ImageUrl" Name="@art.Name" Price="@art.Price" />
+        }
     </div>
 </div>
 
 @code
 {
-    
+    List<Artwork> artworks = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        httpClient = new();
+        httpClient.BaseAddress = new Uri("https://localhost:7225/");
+
+        HttpResponseMessage res = await httpClient.GetAsync("api/artworks");
+        if (res.IsSuccessStatusCode)
+        {
+            artworks = await res.Content.ReadFromJsonAsync<List<Artwork>>();
+        }
+        else
+        {
+            
+        }
+    }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AINouveau.Server.Migrations
 {
     [DbContext(typeof(AINouveauDbContext))]
-    [Migration("20230323173909_InitialCreate")]
+    [Migration("20230324125303_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace AINouveau.Server.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
 
-            modelBuilder.Entity("AINouveau.Shared.ArtWork", b =>
+            modelBuilder.Entity("AINouveau.Shared.Artwork", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,9 +43,14 @@ namespace AINouveau.Server.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
-                    b.ToTable("ArtWork");
+                    b.ToTable("Artwork");
                 });
 #pragma warning restore 612, 618
         }

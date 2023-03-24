@@ -2,7 +2,7 @@
 
 namespace AINouveau.Shared;
 
-public class ArtWork
+public class Artwork
 {
     [Key]
     public int Id { get; set; }
@@ -18,4 +18,7 @@ public class ArtWork
 
     [Required, MaxLength(50)]
     public string ImageUrl { get; set; } = "";
+
+    [Required, MaxLength(50)]
+    public string Type { get; set; } = "";
 }

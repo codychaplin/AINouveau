@@ -27,4 +27,6 @@
     <ProjectReference Include="..\AINouveau.Shared\AINouveau.Shared.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 </Project>

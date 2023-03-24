@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 1,
+    "Name": "Pointy Tailed Painter",
+    "Price": 8500.0,
+    "Prompt": "a photorealistic painting of an orange kitten dressed as an artist sketching on an easel",
+    "ImageUrl": "images/artwork/pointy_tailed_painter.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 2,
+    "Name": "Crash of Colour",
+    "Price": 2100.0,
+    "Prompt": "Zoomed out image of a wave crashing on a beach with beautiful turquoise water",
+    "ImageUrl": "images/artwork/crash_of_colour.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 3,
+    "Name": "Small Turtle Big City",
+    "Price": 1350.0,
+    "Prompt": "image of a optimistic baby turtle crossing a busy street, digital art",
+    "ImageUrl": "images/artwork/small_turtle_big_city.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 4,
+    "Name": "Cosmic Surfer",
+    "Price": 800.0,
+    "Prompt": "an oil painting of a surfer surfing a nebula in space",
+    "ImageUrl": "images/artwork/cosmic_surfer.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 5,
+    "Name": "Moments before Destruction",
+    "Price": 2900.0,
+    "Prompt": "close up drawing of a kitten's face looking wide eyed at a christmas tree",
+    "ImageUrl": "images/artwork/moments_before_destruction.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 6,
+    "Name": "Elevation",
+    "Price": 5200.0,
+    "Prompt": "close up drawing of a kitten's face looking wide eyed at a christmas tree",
+    "ImageUrl": "images/artwork/elevation.png",
+    "Type": "Painting"
+  }
+]

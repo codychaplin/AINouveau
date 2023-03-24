@@ -2,52 +2,66 @@
 using Microsoft.EntityFrameworkCore;
 using AINouveau.Server.Data;
 using AINouveau.Shared;
+using System.Text.Json;
 
-namespace AINouveau.Server.Controllers
+namespace AINouveau.Server.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ArtworksController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ArtWorksController : ControllerBase
+    private readonly AINouveauDbContext dbContext;
+
+    public ArtworksController(AINouveauDbContext context)
     {
-        private readonly AINouveauDbContext dbContext;
+        dbContext = context;
+    }
 
-        public ArtWorksController(AINouveauDbContext context)
+    // GET: api/artworks
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Artwork>>> GetArtWork()
+    {
+        try
         {
-            dbContext = context;
+            await Task.Delay(500);
+            string jsonText = System.IO.File.ReadAllText("Data/Artworks.json");
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var artworks = JsonSerializer.Deserialize<List<Artwork>>(jsonText, options);
+            return artworks;
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
 
-        // GET: api/ArtWorks
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArtWork>>> GetArtWork()
+        /*if (dbContext.Artwork == null)
         {
-          if (dbContext.ArtWork == null)
-          {
-              return NotFound();
-          }
-            return await dbContext.ArtWork.ToListAsync();
+            return NotFound();
+        }
+        return await dbContext.Artwork.ToListAsync();*/
+    }
+
+
+    // GET: api/artworks/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Artwork>> GetArtWork(int id)
+    {
+        if (dbContext.Artwork == null)
+        {
+            return NotFound();
+        }
+        var Artwork = await dbContext.Artwork.FindAsync(id);
+
+        if (Artwork == null)
+        {
+            return NotFound();
         }
 
-        // GET: api/ArtWorks/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ArtWork>> GetArtWork(int id)
-        {
-          if (dbContext.ArtWork == null)
-          {
-              return NotFound();
-          }
-            var artWork = await dbContext.ArtWork.FindAsync(id);
+        return Artwork;
+    }
 
-            if (artWork == null)
-            {
-                return NotFound();
-            }
-
-            return artWork;
-        }
-
-        private bool ArtWorkExists(int id)
-        {
-            return (dbContext.ArtWork?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+    private bool ArtWorkExists(int id)
+    {
+        return (dbContext.Artwork?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }
