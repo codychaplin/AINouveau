@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using AINouveau.Shared;
 using AINouveau.Server.Data;
-using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AINouveau.Server.Services;
 
@@ -31,5 +32,31 @@ public class ArtworkService : IArtworkService
     public async Task<Artwork?> GetArtwork(int id)
     {
         return await dbContext.Artwork.FindAsync(id);
+    }
+
+    public async Task<bool> RemoveArtwork(int id)
+    {
+        var artWork = await dbContext.Artwork.FindAsync(id);
+        if (artWork == null)
+        {
+            return false;
+        }
+
+        dbContext.Artwork.Remove(artWork);
+        await dbContext.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> RemoveAllArtwork()
+    {
+        var artworks = await dbContext.Artwork.ToListAsync();
+        if (artworks == null || !artworks.Any())
+        {
+            return false;
+        }
+
+        dbContext.Artwork.RemoveRange(artworks);
+        await dbContext.SaveChangesAsync();
+        return true;
     }
 }

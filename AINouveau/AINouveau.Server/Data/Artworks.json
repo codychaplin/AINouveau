@@ -46,5 +46,61 @@
     "Prompt": "close up drawing of a kitten's face looking wide eyed at a christmas tree",
     "ImageUrl": "images/artwork/elevation.png",
     "Type": "Painting"
+  },
+  {
+    "Id": 7,
+    "Name": "Temporary Imagination",
+    "Price": 4900.0,
+    "Prompt": "abstract multicoloured lithograph print with large brush strokes",
+    "ImageUrl": "images/artwork/temporary_imagination.png",
+    "Type": "Print"
+  },
+  {
+    "Id": 8,
+    "Name": "Vow of Silence",
+    "Price": 3200.0,
+    "Prompt": "abstract muted tones lithograph print with large brush strokes",
+    "ImageUrl": "images/artwork/vow_of_silence.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 9,
+    "Name": "Raspberry Explosion",
+    "Price": 7700.0,
+    "Prompt": "black and pink india ink sketch of raspberries exploding on white background",
+    "ImageUrl": "images/artwork/raspberry_explosion.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 10,
+    "Name": "Palm de Terre",
+    "Price": 2350.0,
+    "Prompt": "cubist painting of palm fronds",
+    "ImageUrl": "images/artwork/palm_de_terre.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 11,
+    "Name": "Fluid Motion",
+    "Price": 950.0,
+    "Prompt": "minimalist abstract fluid art light colours",
+    "ImageUrl": "images/artwork/fluid_motion.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 12,
+    "Name": "Hue Manatee",
+    "Price": 3600.0,
+    "Prompt": "oil painting of a manatee swimming in a lagoon",
+    "ImageUrl": "images/artwork/hue_manatee.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 13,
+    "Name": "Herd Mentality",
+    "Price": 1850.0,
+    "Prompt": "washy india ink drawing of a herd of zebras",
+    "ImageUrl": "images/artwork/herd_mentality.png",
+    "Type": "Drawing"
   }
 ]

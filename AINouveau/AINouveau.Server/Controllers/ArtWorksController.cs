@@ -44,4 +44,32 @@ public class ArtworksController : ControllerBase
 
         return artwork;
     }
+
+    // DELETE: api/artworks/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteArtWork(int id)
+    {
+        var isDeleted = await artworkService.RemoveArtwork(id);
+
+        if (!isDeleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
+
+    // DELETE: api/artworks/5
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAllArtWork()
+    {
+        var isDeleted = await artworkService.RemoveAllArtwork();
+
+        if (!isDeleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }
