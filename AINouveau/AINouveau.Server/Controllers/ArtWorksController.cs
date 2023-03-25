@@ -21,26 +21,22 @@ public class ArtworksController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Artwork>>> GetArtWork()
     {
-        try
-        {
-            await Task.Delay(500);
-            string jsonText = System.IO.File.ReadAllText("Data/Artworks.json");
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var artworks = JsonSerializer.Deserialize<List<Artwork>>(jsonText, options);
-            return artworks;
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-
-        /*if (dbContext.Artwork == null)
+        if (dbContext.Artwork == null)
         {
             return NotFound();
         }
-        return await dbContext.Artwork.ToListAsync();*/
-    }
 
+        if (!dbContext.Artwork.Any())
+        {
+            // gets Artwork list from json file and adds list to db
+            string jsonText = await System.IO.File.ReadAllTextAsync("Data/Artworks.json");
+            var artworks = JsonSerializer.Deserialize<List<Artwork>>(jsonText)!;
+            await dbContext.Artwork.AddRangeAsync(artworks);
+            await dbContext.SaveChangesAsync();
+        }
+
+        return await dbContext.Artwork.ToListAsync();
+    }
 
     // GET: api/artworks/5
     [HttpGet("{id}")]
@@ -60,7 +56,30 @@ public class ArtworksController : ControllerBase
         return Artwork;
     }
 
-    private bool ArtWorkExists(int id)
+    [HttpPost]
+    public async Task<IActionResult> AddRange(List<Artwork> artworks)
+    {
+        dbContext.Artwork.AddRange(artworks);
+        await dbContext.SaveChangesAsync();
+        return Ok();
+    }
+
+    async Task InitializeDb()
+    {
+        bool isEmpty = dbContext.Artwork.Any();
+
+        if (isEmpty)
+        {
+            // gets Artwork list from json file
+            string jsonText = System.IO.File.ReadAllText("Data/Artworks.json");
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var artworks = JsonSerializer.Deserialize<List<Artwork>>(jsonText, options);
+
+            await AddRange(artworks);
+        }
+    }
+
+    private bool ArtworkExists(int id)
     {
         return (dbContext.Artwork?.Any(e => e.Id == id)).GetValueOrDefault();
     }
