@@ -56,29 +56,6 @@ public class ArtworksController : ControllerBase
         return Artwork;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> AddRange(List<Artwork> artworks)
-    {
-        dbContext.Artwork.AddRange(artworks);
-        await dbContext.SaveChangesAsync();
-        return Ok();
-    }
-
-    async Task InitializeDb()
-    {
-        bool isEmpty = dbContext.Artwork.Any();
-
-        if (isEmpty)
-        {
-            // gets Artwork list from json file
-            string jsonText = System.IO.File.ReadAllText("Data/Artworks.json");
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var artworks = JsonSerializer.Deserialize<List<Artwork>>(jsonText, options);
-
-            await AddRange(artworks);
-        }
-    }
-
     private bool ArtworkExists(int id)
     {
         return (dbContext.Artwork?.Any(e => e.Id == id)).GetValueOrDefault();
