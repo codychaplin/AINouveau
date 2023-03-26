@@ -102,5 +102,93 @@
     "Prompt": "washy india ink drawing of a herd of zebras",
     "ImageUrl": "images/artwork/herd_mentality.png",
     "Type": "Drawing"
+  },
+  {
+    "Id": 14,
+    "Name": "Raven's Nest",
+    "Price": 3300.0,
+    "Prompt": "perspective pencil drawing of medieval castle",
+    "ImageUrl": "images/artwork/ravens_nest.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 15,
+    "Name": "On the Open Road",
+    "Price": 1700.0,
+    "Prompt": "beautiful high-end sports car speeding through the winding roads of a mountain range, digital art",
+    "ImageUrl": "images/artwork/on_the_open_road.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 16,
+    "Name": "At the Station",
+    "Price": 6700.0,
+    "Prompt": "abstract composition of colorful geometric shapes intersecting and overlapping each other, digital art",
+    "ImageUrl": "images/artwork/at_the_station.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 17,
+    "Name": "Abstract Invasion",
+    "Price": 5000.0,
+    "Prompt": "an abstract composition of fluid shapes and textures, reminiscent of a contemporary sculpture, digital art",
+    "ImageUrl": "images/artwork/abstract_invasion.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 18,
+    "Name": "Serenity",
+    "Price": 2000.0,
+    "Prompt": "a digital painting of a serene forest at sunset, with warm golden light filtering through the trees",
+    "ImageUrl": "images/artwork/serenity.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 19,
+    "Name": "Adventure",
+    "Price": 4800.0,
+    "Prompt": "a beautiful green forest with warm light filtering through the trees",
+    "ImageUrl": "images/artwork/adventure.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 20,
+    "Name": "Event Horizon",
+    "Price": 5100.0,
+    "Prompt": "abstract composition of swirling colors and textures, representing the chaos and beauty of life",
+    "ImageUrl": "images/artwork/event_horizon.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 21,
+    "Name": "Into the Storm",
+    "Price": 7700.0,
+    "Prompt": "image of a stormy ocean, with crashing waves and dark skies, conveying a sense of danger and awe, digital art",
+    "ImageUrl": "images/artwork/into_the_storm.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 22,
+    "Name": "Smoke & Mirrors",
+    "Price": 3250.0,
+    "Prompt": "a single flower, with soft lighting and delicate details, digital art",
+    "ImageUrl": "images/artwork/smoke_and_mirrors.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 23,
+    "Name": "The Silence of Snow",
+    "Price": 3900.0,
+    "Prompt": "digital painting of a snow-covered landscape, with a quiet and peaceful atmosphere",
+    "ImageUrl": "images/artwork/the_silence_of_snow.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 24,
+    "Name": "Over the Hills",
+    "Price": 4150.0,
+    "Prompt": "view from a tall mountaintop, overlooking a beautiful mountain range, digital art",
+    "ImageUrl": "images/artwork/over_the_hills.png",
+    "Type": "DigitalArt"
   }
 ]
