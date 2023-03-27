@@ -18,25 +18,73 @@
 
     <!-- main content -->
     <div class="row mt-1 mb-5 g-3 main-body">
+
+        <!-- artwork -->
         @foreach (var art in Artworks)
         {
             <ArtTile ImageUrl="@art.ImageUrl" Name="@art.Name" Price="@art.Price" />
         }
+
+        <!-- pagination -->
+        <nav hidden="@HidePagination">
+            <ul class="pagination my-5 justify-content-center">
+                <li class="page-item">
+                    @if (CurrentPageNumber <= 1)
+                    {
+                        <button class="page-link disabled text-black" aria-label="Previous">Previous</button>
+                    }
+                    else
+                    {
+                        <button class="page-link text-black" aria-label="Previous" @onclick="() => UpdateArt(--CurrentPageNumber)">Previous</button>
+                    }
+                </li>
+                @for (int i = 1; i <= NumberOfPages; i++)
+                {
+                    int pageNum = i;
+                    if (i == CurrentPageNumber)
+                    {
+                        <li class="page-item active"><button class="page-link text-black" @onclick="() => UpdateArt(pageNum)">@i</button></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><button class="page-link text-black" @onclick="() => UpdateArt(pageNum)">@i</button></li>
+                    }
+                }
+                <li class="page-item">
+                    @if (CurrentPageNumber >= NumberOfPages)
+                    {
+                        <button class="page-link disabled text-black" aria-label="Next">Next</button>
+                    }
+                    else
+                    {
+                        <button class="page-link text-black" aria-label="Next" @onclick="() => UpdateArt(++CurrentPageNumber)">Next</button>
+                    }
+                </li>
+            </ul>
+        </nav>
+
     </div>
+
 </div>
 
 @code
 {
+    // content
     List<Artwork> Artworks = new();
     int Count = 0;
 
+    // filters
     bool Painting = true;
     bool DigitalArt = true;
     bool Drawing = true;
     bool Photograph = true;
     int? MinPrice = null;
     int? MaxPrice = null;
-    int PageNumber = 1;
+
+    // pagination
+    int CurrentPageNumber = 1;
+    int NumberOfPages = 1;
+    bool HidePagination = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,25 +93,28 @@
 
     async Task UpdateArt(int pageNumber)
     {
-        Artworks.Clear();
-        PageNumber = pageNumber;
+        HidePagination = true;
+        CurrentPageNumber = pageNumber;
 
         httpClient = new();
         httpClient.BaseAddress = new Uri("https://localhost:7225/");
 
         string url = $"api/artworks/page?painting={Painting}&digitalArt={DigitalArt}&drawing={Drawing}" +
-                     $"&photograph={Photograph}&minPrice={MinPrice}&maxPrice={MaxPrice}&pageNumber={PageNumber}";
+                     $"&photograph={Photograph}&minPrice={MinPrice}&maxPrice={MaxPrice}&pageNumber={CurrentPageNumber}";
 
         HttpResponseMessage response = await httpClient.GetAsync(url);
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadFromJsonAsync<ArtworkResult>();
+            Artworks.Clear();
             Artworks = result!.Artworks;
             Count = result.Count;
+            NumberOfPages = (int)Math.Ceiling((double)Count / 12);
+            HidePagination = false;
         }
         else
         {
-            await js.InvokeAsync<object>("alert", $"Error: Response Code:{response.StatusCode}");
+            await js.InvokeAsync<object>("alert", $"Error\nResponse Code:{response.StatusCode}");
         }
     }
 
