@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using AINouveau.Shared;
 using AINouveau.Server.Data;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AINouveau.Server.Services;
 
 public class ArtworkService : IArtworkService
 {
-    private readonly AINouveauDbContext dbContext;
+    readonly AINouveauDbContext dbContext;
+    const int PAGE_SIZE = 12;
 
     public ArtworkService(AINouveauDbContext context)
     {
@@ -27,6 +27,33 @@ public class ArtworkService : IArtworkService
         }
 
         return await dbContext.Artwork.ToListAsync();
+    }
+
+    public async Task<List<Artwork>> GetArtworkForPage(bool painting, bool digitalArt,
+        bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber)
+    {
+        var query = dbContext.Artwork.AsQueryable();
+
+        if (!(painting && digitalArt && drawing && photograph))
+        {
+            if (painting || digitalArt || drawing || photograph)
+            {
+                query = query.Where(a => (painting && a.Type == "Painting")
+                                      || (digitalArt && a.Type == "DigitalArt")
+                                      || (drawing && a.Type == "Drawing")
+                                      || (photograph && a.Type == "Photograph"));
+            }
+        }
+
+        if (minPrice.HasValue)
+            query = query.Where(a => a.Price >= minPrice.Value);
+
+        if (maxPrice.HasValue)
+            query = query.Where(a => a.Price <= maxPrice.Value);
+
+        return await query.Skip((pageNumber - 1) * PAGE_SIZE)
+                          .Take(PAGE_SIZE)
+                          .ToListAsync();
     }
 
     public async Task<Artwork?> GetArtwork(int id)

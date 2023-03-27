@@ -1,5 +1,7 @@
 ﻿@page "/gallery"
+@using AINouveau.Client.Models;
 @inject HttpClient httpClient
+@inject IJSRuntime js;
 
 <PageTitle>Gallery</PageTitle>
 
@@ -11,7 +13,7 @@
     </div>
 
     <!-- navbar -->
-    <GalleryNavMenu />
+    <GalleryNavMenu Count="@artworks.Count" OnFilterChanged="HandleFilterChanged" />
 
     <!-- main content -->
     <div class="row mt-1 mb-5 g-3 main-body">
@@ -26,19 +28,62 @@
 {
     List<Artwork> artworks = new();
 
+    bool Painting = true;
+    bool DigitalArt = true;
+    bool Drawing = true;
+    bool Photograph = true;
+    int? MinPrice = null;
+    int? MaxPrice = null;
+    int PageNumber = 1;
+
     protected override async Task OnInitializedAsync()
     {
+        await UpdateArt(1);
+    }
+
+    async Task UpdateArt(int pageNumber)
+    {
+        artworks.Clear();
+        PageNumber = pageNumber;
+
         httpClient = new();
         httpClient.BaseAddress = new Uri("https://localhost:7225/");
 
-        HttpResponseMessage res = await httpClient.GetAsync("api/artworks");
+        string url = $"api/artworks/page?painting={Painting}&digitalArt={DigitalArt}&drawing={Drawing}" +
+                     $"&photograph={Photograph}&minPrice={MinPrice}&maxPrice={MaxPrice}&pageNumber={PageNumber}";
+
+        HttpResponseMessage res = await httpClient.GetAsync(url);
         if (res.IsSuccessStatusCode)
         {
             artworks = await res.Content.ReadFromJsonAsync<List<Artwork>>();
         }
         else
         {
-            
+            await js.InvokeAsync<object>("alert", $"Error: Response Code:{res.StatusCode}");
         }
+    }
+
+    async Task HandleFilterChanged(FilterData filter)
+    {
+        // if all false, filter is empty, therefore all should show
+        if (filter.NoTypeFilters)
+        {
+            Painting = true;
+            DigitalArt = true;
+            Drawing = true;
+            Photograph = true;
+        }
+        else
+        {
+            Painting = filter.Painting;
+            DigitalArt = filter.DigitalArt;
+            Drawing = filter.Drawing;
+            Photograph = filter.Photography;
+        }
+
+        MinPrice = filter.MinPrice;
+        MaxPrice = filter.MaxPrice;
+
+        await UpdateArt(1);
     }
 }

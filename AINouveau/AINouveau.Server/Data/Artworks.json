@@ -33,7 +33,7 @@
   },
   {
     "Id": 5,
-    "Name": "Moments before Destruction",
+    "Name": "Moments Before Destruction",
     "Price": 2900.0,
     "Prompt": "close up drawing of a kitten's face looking wide eyed at a christmas tree",
     "ImageUrl": "images/artwork/moments_before_destruction.png",
@@ -53,7 +53,7 @@
     "Price": 4900.0,
     "Prompt": "abstract multicoloured lithograph print with large brush strokes",
     "ImageUrl": "images/artwork/temporary_imagination.png",
-    "Type": "Print"
+    "Type": "Painting"
   },
   {
     "Id": 8,
@@ -149,7 +149,7 @@
     "Price": 4800.0,
     "Prompt": "a beautiful green forest with warm light filtering through the trees",
     "ImageUrl": "images/artwork/adventure.png",
-    "Type": "DigitalArt"
+    "Type": "Photograph"
   },
   {
     "Id": 20,
@@ -190,5 +190,61 @@
     "Prompt": "view from a tall mountaintop, overlooking a beautiful mountain range, digital art",
     "ImageUrl": "images/artwork/over_the_hills.png",
     "Type": "DigitalArt"
+  },
+  {
+    "Id": 25,
+    "Name": "Billiards",
+    "Price": 950.0,
+    "Prompt": "billiards table in a large room, black and white pencil drawing with depth of field, reflections, and accurate perspective",
+    "ImageUrl": "images/artwork/billiards.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 26,
+    "Name": "The Moon",
+    "Price": 590.0,
+    "Prompt": "black and white photo of the moon",
+    "ImageUrl": "images/artwork/the_moon.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 27,
+    "Name": "Waiting for the Bus",
+    "Price": 1400.0,
+    "Prompt": "detailed black and white pencil sketch of a teddy bear holding a balloon sitting on a bench under a tree",
+    "ImageUrl": "images/artwork/waiting_for_the_bus.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 28,
+    "Name": "Shaded & Jaded",
+    "Price": 800.0,
+    "Prompt": "detailed black and white pencil sketch of a city skyline",
+    "ImageUrl": "images/artwork/shaded_and_jaded.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 29,
+    "Name": "Old Town Road",
+    "Price": 2000.0,
+    "Prompt": "detailed pencil sketch of an old city street scene, with depth of field, reflections, and accurate perspective",
+    "ImageUrl": "images/artwork/old_town_road.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 30,
+    "Name": "Blast from the Past",
+    "Price": 1700.0,
+    "Prompt": "detailed sketch of an old city street scene with cobblestones, brick buildings, and a vintage car parked on the street, with depth of field, reflections, and accurate perspective",
+    "ImageUrl": "images/artwork/blast_from_the_past.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 31,
+    "Name": "Thousand Yards",
+    "Price": 3450.0,
+    "Prompt": "pencil drawing of a young woman's face with fine details and realistic shading",
+    "ImageUrl": "images/artwork/thousand_yards.png",
+    "Type": "Drawing"
   }
 ]

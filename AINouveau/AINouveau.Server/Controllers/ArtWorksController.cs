@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AINouveau.Shared;
-using System.Text.Json;
 using AINouveau.Server.Services;
 
 namespace AINouveau.Server.Controllers;
@@ -19,9 +17,24 @@ public class ArtworksController : ControllerBase
 
     // GET: api/artworks
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Artwork>>> GetArtWork()
+    public async Task<ActionResult<IEnumerable<Artwork>>> GetAllArtWork()
     {
         var artworks = await artworkService.GetAllArtwork();
+
+        if (artworks == null)
+        {
+            return NotFound();
+        }
+
+        return artworks;
+    }
+
+    // GET: api/artworks/page
+    [HttpGet("page")]
+    public async Task<ActionResult<IEnumerable<Artwork>>> GetArtworkForPage(bool painting, bool digitalArt,
+        bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber)
+    {
+        var artworks = await artworkService.GetArtworkForPage(painting, digitalArt, drawing, photograph, minPrice, maxPrice, pageNumber);
 
         if (artworks == null)
         {

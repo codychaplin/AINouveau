@@ -1,7 +1,8 @@
-﻿
+﻿@using AINouveau.Client.Models;
+
 <div class="d-flex justify-content-between border-bottom p-3">
     <button class="btn btn-dark d-lg-none fs-5 px-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">Filter</button>
-    <p class="fs-5 my-auto">Number of arts: 123</p>
+    <p class="fs-5 fw-bold my-auto">@Count Artworks:</p>
     <div class="dropdown">
         <button class="btn btn-dark dropdown-toggle fs-5 px-4" type="button" data-bs-toggle="dropdown">
             Sort By
@@ -23,19 +24,31 @@
     </div>
     <div class="offcanvas-body d-block m-2">
         <p class="fs-5">Filter by</p>
+
         <hr />
+
+        <!-- checkboxes -->
         <p class="fs-5">Type</p>
-        <Checkbox Name="Painting" />
-        <Checkbox Name="Digital Art" />
-        <Checkbox Name="Drawing" />
-        <Checkbox Name="Photography" />
+        <div class="form-check ms-2">
+            <input class="form-check-input fs-5" type="checkbox" @onchange="(e) => HandleCheckboxChanged(e, 0)" id="cbPainting">
+            <label class="form-check-label fs-5 text-body-secondary" for="cbPainting">Painting</label>
+        </div>
+        <div class="form-check ms-2">
+            <input class="form-check-input fs-5" type="checkbox" @onchange="(e) => HandleCheckboxChanged(e, 1)" id="cbDigitalArt">
+            <label class="form-check-label fs-5 text-body-secondary" for="cbDigitalArt">Digital Art</label>
+        </div>
+        <div class="form-check ms-2">
+            <input class="form-check-input fs-5" type="checkbox" @onchange="(e) => HandleCheckboxChanged(e, 2)" id="cbDrawing">
+            <label class="form-check-label fs-5 text-body-secondary" for="cbDrawing">Drawing</label>
+        </div>
+        <div class="form-check ms-2">
+            <input class="form-check-input fs-5" type="checkbox" @onchange="(e) => HandleCheckboxChanged(e, 3)" id="cbPhotograph">
+            <label class="form-check-label fs-5 text-body-secondary" for="cbPhotograph">Photograph</label>
+        </div>
+
         <hr />
-        <p class="fs-5">Medium</p>
-        <Checkbox Name="Oil" />
-        <Checkbox Name="Water Colour" />
-        <Checkbox Name="Acrylic" />
-        <Checkbox Name="Pencil" />
-        <hr />
+
+        <!-- price slider -->
         <p class="fs-4">Price</p>
         <div class="row px-1">
             <div class="col-6">
@@ -49,7 +62,7 @@
             </div>
             <div class="col-12 text-center">
                 <SfSlider ID="slider" Width="200" Type="SliderType.Range" Min="0" Max="10000" Step="100" Value="@RangeValue">
-                    <SliderEvents TValue="int[]" ValueChange="@OnValueChange"></SliderEvents>
+                    <SliderEvents TValue="int[]" ValueChange="@OnMinMaxPriceChange"></SliderEvents>
                 </SfSlider>
             </div>
         </div>
@@ -58,12 +71,64 @@
 
 @code
 {
-    public int[] RangeValue { get; set; } = { 0, 10000 };
-    public string Min { get { return RangeValue[0].ToString("C0"); } set { value = Min; } }
-    public string Max { get { return RangeValue[1].ToString("C0"); } set { value = Max; } }
+    [Parameter]
+    public int Count { get; set; }
 
-    void OnValueChange(SliderChangeEventArgs<int[]> args)
+    [Parameter]
+    public int[] RangeValue { get; set; } = { 0, 10000 };
+
+    [Parameter]
+    public EventCallback<FilterData> OnFilterChanged { get; set; }
+
+    bool IsPaintingChecked;
+    bool IsDigitalArtChecked;
+    bool IsDrawingChecked;
+    bool IsPhotographyChecked;
+
+    string Min { get { return RangeValue[0].ToString("C0"); } set { value = Min; } }
+    string Max { get { return RangeValue[1].ToString("C0"); } set { value = Max; } }
+
+    async Task HandleCheckboxChanged(ChangeEventArgs e, int index)
+    {
+        switch (index)
+        {
+            case 0:
+                IsPaintingChecked = (bool)e.Value!;
+                break;
+            case 1:
+                IsDigitalArtChecked = (bool)e.Value!;
+                break;
+            case 2:
+                IsDrawingChecked = (bool)e.Value!;
+                break;
+            case 3:
+                IsPhotographyChecked = (bool)e.Value!;
+                break;
+            default:
+                break;
+        }
+
+        await UpdateFilter();
+    }
+
+    async Task OnMinMaxPriceChange(SliderChangeEventArgs<int[]> args)
     {
         RangeValue = args.Value;
+        await UpdateFilter();
+    }
+
+    async Task UpdateFilter()
+    {
+        var filter = new FilterData
+        {
+            Painting = IsPaintingChecked,
+            DigitalArt = IsDigitalArtChecked,
+            Drawing = IsDrawingChecked,
+            Photography = IsPhotographyChecked,
+            MinPrice = (RangeValue[0]) == 0 ? null : RangeValue[0],
+            MaxPrice = (RangeValue[1]) == 10000 ? null : RangeValue[1]
+        };
+
+        await OnFilterChanged.InvokeAsync(filter);
     }
 }
