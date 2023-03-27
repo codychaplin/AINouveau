@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using AINouveau.Shared;
 using AINouveau.Server.Data;
+using AINouveau.Shared.Models;
 
 namespace AINouveau.Server.Services;
 
@@ -29,7 +30,7 @@ public class ArtworkService : IArtworkService
         return await dbContext.Artwork.ToListAsync();
     }
 
-    public async Task<List<Artwork>> GetArtworkForPage(bool painting, bool digitalArt,
+    public async Task<ArtworkResult> GetArtworkForPage(bool painting, bool digitalArt,
         bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber)
     {
         var query = dbContext.Artwork.AsQueryable();
@@ -50,10 +51,15 @@ public class ArtworkService : IArtworkService
 
         if (maxPrice.HasValue)
             query = query.Where(a => a.Price <= maxPrice.Value);
-
-        return await query.Skip((pageNumber - 1) * PAGE_SIZE)
+        
+        var count = query.Count();
+        var queryForPage = await query.Skip((pageNumber - 1) * PAGE_SIZE)
                           .Take(PAGE_SIZE)
                           .ToListAsync();
+
+        var result = new ArtworkResult(queryForPage, count);
+
+        return result;
     }
 
     public async Task<Artwork?> GetArtwork(int id)

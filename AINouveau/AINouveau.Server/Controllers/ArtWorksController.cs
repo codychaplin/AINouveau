@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AINouveau.Shared;
 using AINouveau.Server.Services;
+using AINouveau.Shared.Models;
 
 namespace AINouveau.Server.Controllers;
 
@@ -31,17 +32,17 @@ public class ArtworksController : ControllerBase
 
     // GET: api/artworks/page
     [HttpGet("page")]
-    public async Task<ActionResult<IEnumerable<Artwork>>> GetArtworkForPage(bool painting, bool digitalArt,
+    public async Task<ActionResult<ArtworkResult>> GetArtworkForPage(bool painting, bool digitalArt,
         bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber)
     {
-        var artworks = await artworkService.GetArtworkForPage(painting, digitalArt, drawing, photograph, minPrice, maxPrice, pageNumber);
+        var artworkResult = await artworkService.GetArtworkForPage(painting, digitalArt, drawing, photograph, minPrice, maxPrice, pageNumber);
 
-        if (artworks == null)
+        if (artworkResult == null)
         {
             return NotFound();
         }
 
-        return artworks;
+        return artworkResult;
     }
 
     // GET: api/artworks/5

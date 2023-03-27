@@ -1,5 +1,6 @@
 ﻿@page "/gallery"
 @using AINouveau.Client.Models;
+@using AINouveau.Shared.Models;
 @inject HttpClient httpClient
 @inject IJSRuntime js;
 
@@ -13,11 +14,11 @@
     </div>
 
     <!-- navbar -->
-    <GalleryNavMenu Count="@artworks.Count" OnFilterChanged="HandleFilterChanged" />
+    <GalleryNavMenu Count="@Count" OnFilterChanged="HandleFilterChanged" />
 
     <!-- main content -->
     <div class="row mt-1 mb-5 g-3 main-body">
-        @foreach (var art in artworks)
+        @foreach (var art in Artworks)
         {
             <ArtTile ImageUrl="@art.ImageUrl" Name="@art.Name" Price="@art.Price" />
         }
@@ -26,7 +27,8 @@
 
 @code
 {
-    List<Artwork> artworks = new();
+    List<Artwork> Artworks = new();
+    int Count = 0;
 
     bool Painting = true;
     bool DigitalArt = true;
@@ -43,7 +45,7 @@
 
     async Task UpdateArt(int pageNumber)
     {
-        artworks.Clear();
+        Artworks.Clear();
         PageNumber = pageNumber;
 
         httpClient = new();
@@ -52,14 +54,16 @@
         string url = $"api/artworks/page?painting={Painting}&digitalArt={DigitalArt}&drawing={Drawing}" +
                      $"&photograph={Photograph}&minPrice={MinPrice}&maxPrice={MaxPrice}&pageNumber={PageNumber}";
 
-        HttpResponseMessage res = await httpClient.GetAsync(url);
-        if (res.IsSuccessStatusCode)
+        HttpResponseMessage response = await httpClient.GetAsync(url);
+        if (response.IsSuccessStatusCode)
         {
-            artworks = await res.Content.ReadFromJsonAsync<List<Artwork>>();
+            var result = await response.Content.ReadFromJsonAsync<ArtworkResult>();
+            Artworks = result!.Artworks;
+            Count = result.Count;
         }
         else
         {
-            await js.InvokeAsync<object>("alert", $"Error: Response Code:{res.StatusCode}");
+            await js.InvokeAsync<object>("alert", $"Error: Response Code:{response.StatusCode}");
         }
     }
 
