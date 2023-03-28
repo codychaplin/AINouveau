@@ -61,6 +61,10 @@
             {
                 ImageUrl = imageResult.Results[0].Url;
             }
+            else
+            {
+                await js.InvokeAsync<object>("alert", imageResult.Error.ToString());
+            }
 
             IsGeneratedImageHidden = false;
             IsSubmitButtonDisabled = false;

@@ -10,7 +10,7 @@
   {
     "Id": 2,
     "Name": "Crash of Colour",
-    "Price": 2100.0,
+    "Price": 4100.0,
     "Prompt": "Zoomed out image of a wave crashing on a beach with beautiful turquoise water",
     "ImageUrl": "images/artwork/crash_of_colour.png",
     "Type": "Photograph"
@@ -146,7 +146,7 @@
   {
     "Id": 19,
     "Name": "Adventure",
-    "Price": 4800.0,
+    "Price": 800.0,
     "Prompt": "a beautiful green forest with warm light filtering through the trees",
     "ImageUrl": "images/artwork/adventure.png",
     "Type": "Photograph"
@@ -414,5 +414,93 @@
     "Prompt": "fountain pen drawing of a cat doing a big stretch",
     "ImageUrl": "images/artwork/big_stretch.png",
     "Type": "Drawing"
+  },
+  {
+    "Id": 53,
+    "Name": "Nowhere",
+    "Price": 500.0,
+    "Prompt": "a high contrast photo of a sandy desert landscape with a bright blue sky",
+    "ImageUrl": "images/artwork/nowhere.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 54,
+    "Name": "Beautifully Blue",
+    "Price": 750.0,
+    "Prompt": "birds eye view of a colourful coral reef",
+    "ImageUrl": "images/artwork/beautifully_blue.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 55,
+    "Name": "Ominous Mist",
+    "Price": 800.0,
+    "Prompt": "birds eye view of a foggy forest",
+    "ImageUrl": "images/artwork/ominous_mist.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 56,
+    "Name": "Sea Spray",
+    "Price": 350.0,
+    "Prompt": "image of a colourful ocean reef",
+    "ImageUrl": "images/artwork/sea_spray.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 57,
+    "Name": "The Goodest Boy",
+    "Price": 950.0,
+    "Prompt": "image of a golden retriever puppy watching the sunset at the beach",
+    "ImageUrl": "images/artwork/the_goodest_boy.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 58,
+    "Name": "The Depths Below",
+    "Price": 400.0,
+    "Prompt": "mysterious underwater photo evoking thalassophobia",
+    "ImageUrl": "images/artwork/the_depths_below.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 59,
+    "Name": "Top of the World",
+    "Price": 700.0,
+    "Prompt": "photo from the top of mount everest",
+    "ImageUrl": "images/artwork/top_of_the_world.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 60,
+    "Name": "A Long Walk",
+    "Price": 150.0,
+    "Prompt": "photo of a desert landscape",
+    "ImageUrl": "images/artwork/a_long_walk.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 61,
+    "Name": "Apex",
+    "Price": 1150.0,
+    "Prompt": "photo of a great white shark evoking thalassophobia",
+    "ImageUrl": "images/artwork/apex.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 62,
+    "Name": "Fury of the Gods",
+    "Price": 850.0,
+    "Prompt": "photo of an erupting volcano with flowing lava",
+    "ImageUrl": "images/artwork/fury_of_the_gods.png",
+    "Type": "Photograph"
+  },
+  {
+    "Id": 63,
+    "Name": "Far From Home",
+    "Price": 600.0,
+    "Prompt": "thalassophobia evoking photo",
+    "ImageUrl": "images/artwork/far_from_home.png",
+    "Type": "Photograph"
   }
 ]
