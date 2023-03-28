@@ -15,8 +15,8 @@ public class ArtworkService : IArtworkService
     {
         dbContext = context;
     }
-    
-    public async Task<List<Artwork>> GetAllArtwork()
+
+    async Task Init()
     {
         if (!dbContext.Artwork.Any())
         {
@@ -26,13 +26,18 @@ public class ArtworkService : IArtworkService
             await dbContext.Artwork.AddRangeAsync(artworks);
             await dbContext.SaveChangesAsync();
         }
-
+    }
+    
+    public async Task<List<Artwork>> GetAllArtwork()
+    {
+        await Init();
         return await dbContext.Artwork.ToListAsync();
     }
 
     public async Task<ArtworkResult> GetArtworkForPage(bool painting, bool digitalArt,
         bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber)
     {
+        await Init();
         var query = dbContext.Artwork.AsQueryable();
 
         if (!(painting && digitalArt && drawing && photograph))

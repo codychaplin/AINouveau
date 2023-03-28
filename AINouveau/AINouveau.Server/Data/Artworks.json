@@ -26,7 +26,7 @@
   {
     "Id": 4,
     "Name": "Cosmic Surfer",
-    "Price": 800.0,
+    "Price": 6800.0,
     "Prompt": "an oil painting of a surfer surfing a nebula in space",
     "ImageUrl": "images/artwork/cosmic_surfer.png",
     "Type": "Painting"
@@ -162,7 +162,7 @@
   {
     "Id": 21,
     "Name": "Into the Storm",
-    "Price": 7700.0,
+    "Price": 7550.0,
     "Prompt": "image of a stormy ocean, with crashing waves and dark skies, conveying a sense of danger and awe, digital art",
     "ImageUrl": "images/artwork/into_the_storm.png",
     "Type": "DigitalArt"
@@ -246,5 +246,77 @@
     "Prompt": "pencil drawing of a young woman's face with fine details and realistic shading",
     "ImageUrl": "images/artwork/thousand_yards.png",
     "Type": "Drawing"
+  },
+  {
+    "Id": 32,
+    "Name": "Wolf in Sheep's Clothing",
+    "Price": 7100.0,
+    "Prompt": "abstract expressive painting",
+    "ImageUrl": "images/artwork/wolf_in_sheeps_clothing.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 33,
+    "Name": "Deep Down",
+    "Price": 5050.0,
+    "Prompt": "abstract fluid art painting",
+    "ImageUrl": "images/artwork/deep_down.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 34,
+    "Name": "Supernova",
+    "Price": 4100.0,
+    "Prompt": "abstract oil painting of a star going supernova",
+    "ImageUrl": "images/artwork/supernova.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 35,
+    "Name": "Eye of the Beholder",
+    "Price": 3800.0,
+    "Prompt": "abstract symmetrical fluid painting",
+    "ImageUrl": "images/artwork/eye_of_the_beholder.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 36,
+    "Name": "Autumn Valley",
+    "Price": 900.0,
+    "Prompt": "contemporary landscape oil painting",
+    "ImageUrl": "images/artwork/autumn_valley.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 37,
+    "Name": "The Center",
+    "Price": 5800.0,
+    "Prompt": "contemporary painting of a blackhole",
+    "ImageUrl": "images/artwork/the_center.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 38,
+    "Name": "The Last Drop",
+    "Price": 4550.0,
+    "Prompt": "minimalist abstract fluid art",
+    "ImageUrl": "images/artwork/the_last_drop.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 39,
+    "Name": "Golden Hour",
+    "Price": 2500.0,
+    "Prompt": "minimalist abstract modern art of a beach at sunset",
+    "ImageUrl": "images/artwork/golden_hour.png",
+    "Type": "Painting"
+  },
+  {
+    "Id": 40,
+    "Name": "Egyptian Influence",
+    "Price": 6000.0,
+    "Prompt": "oil painting of the egyptian pyramids",
+    "ImageUrl": "images/artwork/egyptian_influence.png",
+    "Type": "Painting"
   }
 ]
