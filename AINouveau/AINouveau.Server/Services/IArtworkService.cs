@@ -7,7 +7,7 @@ public interface IArtworkService
 {
     Task<List<Artwork>> GetAllArtwork();
     Task<ArtworkResult> GetArtworkForPage(bool painting, bool digitalArt, bool drawing,
-        bool photograph, int? minPrice, int? maxPrice, int pageNumber);
+        bool photograph, int? minPrice, int? maxPrice, int pageNumber, SortOptions option);
     Task<Artwork?> GetArtwork(int id);
     Task<bool> RemoveArtwork(int id);
     Task<bool> RemoveAllArtwork();

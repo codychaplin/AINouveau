@@ -14,7 +14,7 @@
     </div>
 
     <!-- navbar -->
-    <GalleryNavMenu Count="@Count" OnFilterChanged="HandleFilterChanged" />
+    <GalleryNavMenu Count="@Count" OnSortChanged="HandleSortChanged" OnFilterChanged="HandleFilterChanged" />
 
     <!-- main content -->
     <div class="row mt-1 mb-5 g-3 main-body">
@@ -81,6 +81,9 @@
     int? MinPrice = null;
     int? MaxPrice = null;
 
+    // sorting
+    SortOptions Option = SortOptions.Popular;
+
     // pagination
     int CurrentPageNumber = 1;
     int NumberOfPages = 1;
@@ -100,7 +103,8 @@
         httpClient.BaseAddress = new Uri("https://localhost:7225/");
 
         string url = $"api/artworks/page?painting={Painting}&digitalArt={DigitalArt}&drawing={Drawing}" +
-                     $"&photograph={Photograph}&minPrice={MinPrice}&maxPrice={MaxPrice}&pageNumber={CurrentPageNumber}";
+                     $"&photograph={Photograph}&minPrice={MinPrice}&maxPrice={MaxPrice}" +
+                     $"&pageNumber={CurrentPageNumber}&option={Option}";
 
         HttpResponseMessage response = await httpClient.GetAsync(url);
         if (response.IsSuccessStatusCode)
@@ -116,6 +120,12 @@
         {
             await js.InvokeAsync<object>("alert", $"Error\nResponse Code:{response.StatusCode}");
         }
+    }
+
+    async Task HandleSortChanged(SortOptions option)
+    {
+        Option = option;
+        await UpdateArt(1);
     }
 
     async Task HandleFilterChanged(FilterData filter)

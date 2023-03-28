@@ -33,9 +33,9 @@ public class ArtworksController : ControllerBase
     // GET: api/artworks/page
     [HttpGet("page")]
     public async Task<ActionResult<ArtworkResult>> GetArtworkForPage(bool painting, bool digitalArt,
-        bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber)
+        bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber, SortOptions option)
     {
-        var artworkResult = await artworkService.GetArtworkForPage(painting, digitalArt, drawing, photograph, minPrice, maxPrice, pageNumber);
+        var artworkResult = await artworkService.GetArtworkForPage(painting, digitalArt, drawing, photograph, minPrice, maxPrice, pageNumber, option);
 
         if (artworkResult == null)
         {

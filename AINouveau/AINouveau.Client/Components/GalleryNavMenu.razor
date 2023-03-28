@@ -1,18 +1,40 @@
 ﻿@using AINouveau.Client.Models;
+@using AINouveau.Shared.Models;
 
 <div class="d-flex justify-content-between border-bottom p-3">
     <button class="btn btn-dark d-lg-none fs-5 px-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">Filter</button>
     <p class="fs-5 fw-bold my-auto">@Count Artworks:</p>
     <div class="dropdown">
         <button class="btn btn-dark dropdown-toggle fs-5 px-4" type="button" data-bs-toggle="dropdown">
-            Sort By
+            Sort By: @SortOptionText
         </button>
         <ul class="dropdown-menu">
-            <li><button class="dropdown-item" type="button">Popular</button></li>
-            <li><button class="dropdown-item" type="button">$ - $$$</button></li>
-            <li><button class="dropdown-item" type="button">$$$ - $</button></li>
-            <li><button class="dropdown-item" type="button">A - Z</button></li>
-            <li><button class="dropdown-item" type="button">Z - A</button></li>
+            <li><button class="dropdown-item @(SortOption == SortOptions.Popular ? "active" : "")"
+                        type="button" @onclick="() => UpdateSortOption(SortOptions.Popular)">
+                    Popular
+                </button>
+            </li>
+            <li>
+                <button class="dropdown-item @(SortOption == SortOptions.PriceLowToHigh ? "active" : "")"
+                        type="button" @onclick="() => UpdateSortOption(SortOptions.PriceLowToHigh)">
+                        $ - $$$
+                </button>
+            </li>
+            <li><button class="dropdown-item @(SortOption == SortOptions.PriceHighToLow ? "active" : "")"
+                        type="button" @onclick="() => UpdateSortOption(SortOptions.PriceHighToLow)">
+                    $$$ - $
+                </button>
+            </li>
+            <li><button class="dropdown-item @(SortOption == SortOptions.NameAToZ ? "active" : "")"
+                        type="button" @onclick="() => UpdateSortOption(SortOptions.NameAToZ)">
+                    A - Z
+                </button>
+            </li>
+            <li><button class="dropdown-item @(SortOption == SortOptions.NameZToA ? "active" : "")"
+                        type="button" @onclick="() => UpdateSortOption(SortOptions.NameZToA)">
+                    Z - A
+                </button>
+            </li>
         </ul>
     </div>
 </div>
@@ -80,6 +102,9 @@
     [Parameter]
     public EventCallback<FilterData> OnFilterChanged { get; set; }
 
+    [Parameter]
+    public EventCallback<SortOptions> OnSortChanged { get; set; }
+
     bool IsPaintingChecked;
     bool IsDigitalArtChecked;
     bool IsDrawingChecked;
@@ -87,6 +112,35 @@
 
     string Min { get { return RangeValue[0].ToString("C0"); } set { value = Min; } }
     string Max { get { return RangeValue[1].ToString("C0"); } set { value = Max; } }
+
+    SortOptions SortOption = SortOptions.Popular;
+    string SortOptionText = "Popular";
+
+    async Task UpdateSortOption(SortOptions option)
+    {
+        SortOption = option;
+        switch (option)
+        {
+            case SortOptions.Popular:
+                SortOptionText = "Popular";
+                break;
+            case SortOptions.PriceLowToHigh:
+                SortOptionText = "$ - $$$";
+                break;
+            case SortOptions.PriceHighToLow:
+                SortOptionText = "$$$ - $";
+                break;
+            case SortOptions.NameAToZ:
+                SortOptionText = "A - Z";
+                break;
+            case SortOptions.NameZToA:
+                SortOptionText = "Z - A";
+                break;
+            default:
+                break;
+        }
+        await OnSortChanged.InvokeAsync(option);
+    }
 
     async Task HandleCheckboxChanged(ChangeEventArgs e, int index)
     {

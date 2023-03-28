@@ -34,8 +34,8 @@ public class ArtworkService : IArtworkService
         return await dbContext.Artwork.ToListAsync();
     }
 
-    public async Task<ArtworkResult> GetArtworkForPage(bool painting, bool digitalArt,
-        bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber)
+    public async Task<ArtworkResult> GetArtworkForPage(bool painting, bool digitalArt, bool drawing,
+        bool photograph, int? minPrice, int? maxPrice, int pageNumber, SortOptions option)
     {
         await Init();
         var query = dbContext.Artwork.AsQueryable();
@@ -56,11 +56,32 @@ public class ArtworkService : IArtworkService
 
         if (maxPrice.HasValue)
             query = query.Where(a => a.Price <= maxPrice.Value);
-        
+
+        List<Artwork> artworks = query.ToList();
+        switch (option)
+        {
+            case SortOptions.Popular:
+                break;
+            case SortOptions.PriceLowToHigh:
+                artworks = artworks.OrderBy(a => a.Price).ToList();
+                break;
+            case SortOptions.PriceHighToLow:
+                artworks = artworks.OrderByDescending(a => a.Price).ToList();
+                break;
+            case SortOptions.NameAToZ:
+                artworks = artworks.OrderBy(a => a.Name).ToList();
+                break;
+            case SortOptions.NameZToA:
+                artworks = artworks.OrderByDescending(a => a.Name).ToList();
+                break;
+            default:
+                break;
+        }
+
         var count = query.Count();
-        var queryForPage = await query.Skip((pageNumber - 1) * PAGE_SIZE)
-                          .Take(PAGE_SIZE)
-                          .ToListAsync();
+        var queryForPage = artworks.Skip((pageNumber - 1) * PAGE_SIZE)
+                                   .Take(PAGE_SIZE)
+                                   .ToList();
 
         var result = new ArtworkResult(queryForPage, count);
 
