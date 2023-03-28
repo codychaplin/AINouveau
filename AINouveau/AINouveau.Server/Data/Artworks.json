@@ -2,7 +2,7 @@
   {
     "Id": 1,
     "Name": "Pointy Tailed Painter",
-    "Price": 8500.0,
+    "Price": 10000.0,
     "Prompt": "a photorealistic painting of an orange kitten dressed as an artist sketching on an easel",
     "ImageUrl": "images/artwork/pointy_tailed_painter.png",
     "Type": "Painting"
@@ -318,5 +318,101 @@
     "Prompt": "oil painting of the egyptian pyramids",
     "ImageUrl": "images/artwork/egyptian_influence.png",
     "Type": "Painting"
+  },
+  {
+    "Id": 41,
+    "Name": "Desert Treasure",
+    "Price": 1200.0,
+    "Prompt": "delorean driving through the desert, synthwave digital art",
+    "ImageUrl": "images/artwork/desert_treasure.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 42,
+    "Name": "Society",
+    "Price": 9400.0,
+    "Prompt": "digital painting of a man wearing a VR headset looking at a painting in an art gallery",
+    "ImageUrl": "images/artwork/society.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 43,
+    "Name": "Near the End",
+    "Price": 4900.0,
+    "Prompt": "Digital painting of a group of men in hazmat suits overlooking the chernobyl disaster, synthwave",
+    "ImageUrl": "images/artwork/near_the_end.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 44,
+    "Name": "Apocalypse",
+    "Price": 7200.0,
+    "Prompt": "Digital painting of a group of men in hazmat suits overlooking chernobyl, synthwave",
+    "ImageUrl": "images/artwork/apocalypse.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 45,
+    "Name": "Alone",
+    "Price": 6900.0,
+    "Prompt": "a lone astronaut on the moon looking at Earth, digital art",
+    "ImageUrl": "images/artwork/alone.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 46,
+    "Name": "Soul Surfer",
+    "Price": 4600.0,
+    "Prompt": "a man in futuristic armour surfing a cloud on a surfboard, digital art",
+    "ImageUrl": "images/artwork/soul_surfer.png",
+    "Type": "DigitalArt"
+  },
+  {
+    "Id": 47,
+    "Name": "king of the Jungle",
+    "Price": 3800.0,
+    "Prompt": "coloured drawing of a lion's face with fine details",
+    "ImageUrl": "images/artwork/king_of_the_jungle.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 48,
+    "Name": "Alpha",
+    "Price": 3000.0,
+    "Prompt": "coloured drawing of a wolf's face with fine details",
+    "ImageUrl": "images/artwork/alpha.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 49,
+    "Name": "Salvation",
+    "Price": 2700.0,
+    "Prompt": "detailed drawing of a desert oasis",
+    "ImageUrl": "images/artwork/salvation.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 50,
+    "Name": "Innocence",
+    "Price": 950.0,
+    "Prompt": "detailed pencil sketch of a kitten",
+    "ImageUrl": "images/artwork/innocence.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 51,
+    "Name": "No Place Like Home",
+    "Price": 2600.0,
+    "Prompt": "detailed pencil sketch of a rug in front of a fireplace",
+    "ImageUrl": "images/artwork/no_place_like_home.png",
+    "Type": "Drawing"
+  },
+  {
+    "Id": 52,
+    "Name": "Big Stretch",
+    "Price": 800.0,
+    "Prompt": "fountain pen drawing of a cat doing a big stretch",
+    "ImageUrl": "images/artwork/big_stretch.png",
+    "Type": "Drawing"
   }
 ]
