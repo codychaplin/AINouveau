@@ -21,13 +21,7 @@ public class ArtworksController : ControllerBase
     public async Task<ActionResult<IEnumerable<Artwork>>> GetAllArtWork()
     {
         var artworks = await artworkService.GetAllArtwork();
-
-        if (artworks == null)
-        {
-            return NotFound();
-        }
-
-        return artworks;
+        return artworks == null ? NotFound() : artworks;
     }
 
     // GET: api/artworks/page
@@ -36,13 +30,7 @@ public class ArtworksController : ControllerBase
         bool drawing, bool photograph, int? minPrice, int? maxPrice, int pageNumber, SortOptions option)
     {
         var artworkResult = await artworkService.GetArtworkForPage(painting, digitalArt, drawing, photograph, minPrice, maxPrice, pageNumber, option);
-
-        if (artworkResult == null)
-        {
-            return NotFound();
-        }
-
-        return artworkResult;
+        return artworkResult == null ? NotFound() : artworkResult;
     }
 
     // GET: api/artworks/5
@@ -50,13 +38,7 @@ public class ArtworksController : ControllerBase
     public async Task<ActionResult<Artwork>> GetArtWork(int id)
     {
         var artwork = await artworkService.GetArtwork(id);
-
-        if (artwork == null)
-        {
-            return NotFound();
-        }
-
-        return artwork;
+        return artwork == null ? NotFound() : artwork;
     }
 
     // DELETE: api/artworks/5
@@ -64,13 +46,7 @@ public class ArtworksController : ControllerBase
     public async Task<IActionResult> DeleteArtWork(int id)
     {
         var isDeleted = await artworkService.RemoveArtwork(id);
-
-        if (!isDeleted)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return isDeleted ? NoContent() : NotFound();
     }
 
     // DELETE: api/artworks/5
@@ -78,12 +54,6 @@ public class ArtworksController : ControllerBase
     public async Task<IActionResult> DeleteAllArtWork()
     {
         var isDeleted = await artworkService.RemoveAllArtwork();
-
-        if (!isDeleted)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return isDeleted ? NoContent() : NotFound();
     }
 }

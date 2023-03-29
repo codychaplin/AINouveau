@@ -22,7 +22,7 @@
         <!-- artwork -->
         @foreach (var art in Artworks)
         {
-            <ArtTile ImageUrl="@art.ImageUrl" Name="@art.Name" Price="@art.Price" />
+            <ArtTile Id="@art.Id" ImageUrl="@art.ImageUrl" Name="@art.Name" Price="@art.Price" />
         }
 
         <!-- pagination -->
@@ -105,20 +105,27 @@
         string url = $"api/artworks/page?painting={Painting}&digitalArt={DigitalArt}&drawing={Drawing}" +
                      $"&photograph={Photograph}&minPrice={MinPrice}&maxPrice={MaxPrice}" +
                      $"&pageNumber={CurrentPageNumber}&option={Option}";
-
-        HttpResponseMessage response = await httpClient.GetAsync(url);
-        if (response.IsSuccessStatusCode)
+        
+        try
         {
-            var result = await response.Content.ReadFromJsonAsync<ArtworkResult>();
-            Artworks.Clear();
-            Artworks = result!.Artworks;
-            Count = result.Count;
-            NumberOfPages = (int)Math.Ceiling((double)Count / 12);
-            HidePagination = false;
+            HttpResponseMessage response = await httpClient.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<ArtworkResult>();
+                Artworks.Clear();
+                Artworks = result!.Artworks;
+                Count = result.Count;
+                NumberOfPages = (int)Math.Ceiling((double)Count / 12);
+                HidePagination = false;
+            }
+            else
+            {
+                throw new Exception($"{response.StatusCode}");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await js.InvokeAsync<object>("alert", $"Error\nResponse Code:{response.StatusCode}");
+            await js.InvokeAsync<object>("alert", $"Error: {ex.Message}");
         }
     }
 

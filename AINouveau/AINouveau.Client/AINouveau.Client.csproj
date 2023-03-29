@@ -19,4 +19,8 @@
     <ProjectReference Include="..\AINouveau.Shared\AINouveau.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\rooms\" />
+  </ItemGroup>
+
 </Project>

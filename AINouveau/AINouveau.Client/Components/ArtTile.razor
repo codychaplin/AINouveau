@@ -1,4 +1,6 @@
-﻿<div class="col-12 col-sm-6 col-md-3">
+﻿@inject NavigationManager navigationManager
+
+<div class="col-12 col-sm-6 col-md-3" @onclick="GoToDetailPage">
     <div class="bg-offwhite border border-2 border-dark-subtle">
         <img class="w-100" src="@ImageUrl" />
         <p class="fs-5 fw-light text-center mb-0 mt-2">@Name</p>
@@ -9,6 +11,9 @@
 @code
 {
     [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
     public string ImageUrl { get; set; } = "";
 
     [Parameter]
@@ -16,4 +21,9 @@
 
     [Parameter]
     public decimal Price { get; set; } = 0;
+
+    void GoToDetailPage()
+    {
+        navigationManager.NavigateTo($"/artwork/{Id}");
+    }
 }

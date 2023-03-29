@@ -48,6 +48,11 @@ html, body {
     font-size: 40px;
 }
 
+.fs-xl {
+    font-size: 50px;
+    line-height: 50px;
+}
+
 .validation-message {
     color: red;
 }

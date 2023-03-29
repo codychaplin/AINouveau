@@ -1,0 +1,105 @@
+﻿@page "/artwork/{Id:int}"
+@inject HttpClient httpClient
+@inject IJSRuntime js;
+
+<div class="container-lg">
+    <div class="row mt-5">
+        <div class="col-6" style="width: 550px; height: 550px;">
+            <div id="DetailCarousel" class="carousel slide">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#DetailCarousel" data-bs-slide-to="0" aria-label="Slide 1" aria-current="true" class="active"></button>
+                    <button type="button" data-bs-target="#DetailCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#DetailCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#DetailCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="@Artwork.ImageUrl" class="d-block w-100" alt="@Artwork.Name">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="room-1">
+                            <div class="position-absolute w-100 h-100 room-shadow"></div>
+                            <img src="@Artwork.ImageUrl" class="img-fluid" alt="@Artwork.Name">
+                        </div>
+                        <img src="images/rooms/room1.png" class="d-block w-100" alt="Room 1">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="room-2">
+                            <div class="position-absolute w-100 h-100 room-shadow"></div>
+                            <img src="@Artwork.ImageUrl" class="img-fluid" alt="@Artwork.Name">
+                        </div>
+                        <img src="images/rooms/room2.png" class="d-block w-100" alt="Room 2">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="room-3">
+                            <div class="position-absolute w-100 h-100 room-shadow"></div>
+                            <img src="@Artwork.ImageUrl" class="img-fluid" alt="@Artwork.Name">
+                        </div>
+                        <img src="images/rooms/room3.png" class="d-block w-100" alt="Room 3">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#DetailCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#DetailCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <p class="fst-italic text-center my-auto flex-wrap p-2 bg-offwhite">"@Artwork.Prompt"</p>
+        </div>
+        <div class="col-6 ps-5 my-auto">
+            <p class="fs-xl">@Artwork.Name</p>
+            <label class="fs-4 text-uppercase">Details</label>
+
+            <hr class="my-1" />
+
+            <div class="my-3">
+                <label class="fs-6 text-uppercase">Price</label>
+                <p class="fs-4">@Artwork.Price.ToString("C2")</p>
+                <label class="fs-6 text-uppercase">Type</label>
+                <p class="fs-4">@Artwork.Type</p>
+                <label class="fs-6 text-uppercase">Size</label>
+                <p class="fs-4">1024 x 1024 pixels</p>
+            </div>
+
+            <hr />
+
+            <button class="mt-3 btn btn-dark btn-lg fw-light ls-1 text-uppercase w-100">Purchase</button>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    Artwork Artwork = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        httpClient = new();
+        httpClient.BaseAddress = new Uri("https://localhost:7225/");
+        string url = $"api/artworks/{Id}";
+
+        try
+        {
+            HttpResponseMessage response = await httpClient.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<Artwork>();
+                Artwork = result ?? throw new Exception("Could not get artwork from database");
+            }
+            else
+            {
+                throw new Exception($"{response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            await js.InvokeAsync<object>("alert", $"Error: {ex.Message}");
+        }
+    }
+}
