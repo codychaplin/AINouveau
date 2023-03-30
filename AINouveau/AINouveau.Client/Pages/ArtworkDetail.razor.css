@@ -1,27 +1,33 @@
-﻿.room-1 {
+﻿.carousel-item {
+    z-index: 1;
+}
+
+.room {
     position: absolute;
-    height: 137px;
-    width: 137px;
-    margin-top: 124px;
-    margin-left: 298px;
+    z-index: -1;
+}
+
+.room-1 {
+    height: 142px;
+    width: 142px;
+    margin-top: 121px;
+    margin-left: 295px;
 }
 
 .room-2 {
-    position: absolute;
-    height: 99px;
-    width: 99px;
-    margin-top: 135px;
-    margin-left: 139px;
+    height: 104px;
+    width: 104px;
+    margin-top: 133px;
+    margin-left: 137px;
 }
 
 .room-3 {
-    position: absolute;
-    height: 147px;
-    width: 147px;
-    margin-top: 72px;
-    margin-left: 191px;
+    height: 153px;
+    width: 153px;
+    margin-top: 69px;
+    margin-left: 188px;
 }
 
 .room-shadow {
-    box-shadow: inset 0 0 3px 1px #00000066
+    box-shadow: inset 0 0 5px 3px #00000066
 }
