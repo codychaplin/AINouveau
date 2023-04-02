@@ -1,9 +1,15 @@
 ﻿@page "/artwork/{Id:int}"
-@inject HttpClient httpClient
+@using OpenAI.GPT3;
+@using OpenAI.GPT3.Managers;
+@using OpenAI.GPT3.ObjectModels;
+@using OpenAI.GPT3.ObjectModels.RequestModels;
+@inject IHttpClientFactory ClientFactory
 @inject IJSRuntime js;
 
-<div class="container-lg">
-    <div class="row mt-5">
+<div class="container-lg pb-4">
+
+    <!-- artwork and description -->
+    <div class="row my-5">
         <div class="col-6" style="width: 550px; height: 550px;">
             <div id="DetailCarousel" class="carousel slide">
                 <div class="carousel-indicators">
@@ -71,35 +77,128 @@
     </div>
 </div>
 
+<!-- image variation -->
+<section class="bg-offwhite mt-4">
+    <div class="container-lg">
+        <div class="row py-5">
+            <div class="col-6 my-auto pe-5">
+                <p class="fs-1 text-end">Like the painting but don't love it?</p>
+                <p class="fs-4 text-end">
+                    Create a variation! Click the button below to generate an altered version of
+                    "<i>@Artwork.Name</i>" to see if it suits you better.
+                </p>
+                <button class="btn btn-dark float-end" disabled="@IsBtnDisabled" onclick="@GenerateImage">Create Variation</button>
+            </div>
+            <div class="col-6">
+                <img class="img-fluid" src="@ImageUrl" alt="Generated Image" height="400" width="400" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- info -->
+<div class="container-lg">
+    <div class="row mb-5 mt-0">
+
+        <!-- title -->
+        <div class="col-12 mt-5 mb-3">
+            <p class="fs-3">You May Also Like</p>
+            <hr style="width: 200px;" />
+        </div>
+
+        <!-- artworks -->
+        @foreach (var artwork in SimilarArtworks)
+        {
+            <ArtTile Id="@artwork.Id" ImageUrl="@artwork.ImageUrl" Name="@artwork.Name" Price="@artwork.Price" />
+        }
+    </div>
+</div>
+
 @code
 {
     [Parameter]
     public int Id { get; set; }
 
+    string ImageUrl { get; set; } = "images/artwork/default.png";
+    bool IsBtnDisabled = false;
     Artwork Artwork = new();
+    List<Artwork> SimilarArtworks = new();
+    OpenAIService OpenAI;
 
     protected override async Task OnInitializedAsync()
     {
-        httpClient = new();
-        httpClient.BaseAddress = new Uri("https://localhost:7225/");
-        string url = $"api/artworks/{Id}";
-
         try
         {
-            HttpResponseMessage response = await httpClient.GetAsync(url);
-            if (response.IsSuccessStatusCode)
+            var uri = new Uri("https://localhost:7225/");
+            var client = ClientFactory.CreateClient();
+            client.BaseAddress = uri;
+            string url1 = $"api/artworks/{Id}";
+            HttpResponseMessage response1 = await client.GetAsync(url1);
+            if (response1.IsSuccessStatusCode)
             {
-                var result = await response.Content.ReadFromJsonAsync<Artwork>();
+                var result = await response1.Content.ReadFromJsonAsync<Artwork>();
                 Artwork = result ?? throw new Exception("Could not get artwork from database");
             }
             else
             {
-                throw new Exception($"{response.StatusCode}");
+                throw new Exception($"{response1.StatusCode}");
             }
+
+            string url2 = $"api/artworks/similar?id={Artwork.Id}";
+            HttpResponseMessage response2 = await client.GetAsync(url2);
+            if (response2.IsSuccessStatusCode)
+            {
+                var result = await response2.Content.ReadFromJsonAsync<List<Artwork>>();
+                SimilarArtworks = result ?? throw new Exception("Could not get artwork from database");
+            }
+            else
+            {
+                throw new Exception($"{response2.StatusCode}");
+            }
+
+            OpenAI = new OpenAIService(new OpenAiOptions()
+            {
+                ApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY")!
+            }); 
         }
         catch (Exception ex)
         {
             await js.InvokeAsync<object>("alert", $"Error: {ex.Message}");
+        }
+    }
+
+    public async Task GenerateImage()
+    {
+        try
+        {
+            IsBtnDisabled = true;
+            var image = System.IO.File.ReadAllBytes($"wwwroot/{Artwork.ImageUrl}");
+            var imageResult = await OpenAI.CreateImageVariation( new ImageVariationCreateRequest
+            {
+                Image = image,
+                ImageName = Artwork.Name,
+                N = 1,
+                Size = StaticValues.ImageStatics.Size.Size1024,
+                ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url
+            });
+
+            if (imageResult.Successful)
+            {
+                ImageUrl = imageResult.Results[0].Url;
+            }
+            else
+            {
+                await js.InvokeAsync<object>("alert", imageResult.Error.ToString());
+            }
+        }
+        catch (Exception ex)
+        {
+            ImageUrl = "images/artwork/default.png";
+            await js.InvokeAsync<object>("alert", ex.Message);
+        }
+        finally
+        {
+            IsBtnDisabled = false;
         }
     }
 }

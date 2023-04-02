@@ -50,7 +50,7 @@
   {
     "Id": 7,
     "Name": "Temporary Imagination",
-    "Price": 4900.0,
+    "Price": 4850.0,
     "Prompt": "abstract multicoloured lithograph print with large brush strokes",
     "ImageUrl": "images/artwork/temporary_imagination.png",
     "Type": "Painting"
@@ -82,7 +82,7 @@
   {
     "Id": 11,
     "Name": "Fluid Motion",
-    "Price": 950.0,
+    "Price": 2950.0,
     "Prompt": "minimalist abstract fluid art light colours",
     "ImageUrl": "images/artwork/fluid_motion.png",
     "Type": "Painting"
@@ -109,7 +109,7 @@
     "Price": 3300.0,
     "Prompt": "perspective pencil drawing of medieval castle",
     "ImageUrl": "images/artwork/ravens_nest.png",
-    "Type": "DigitalArt"
+    "Type": "Drawing"
   },
   {
     "Id": 15,
@@ -202,7 +202,7 @@
   {
     "Id": 26,
     "Name": "The Moon",
-    "Price": 590.0,
+    "Price": 550.0,
     "Prompt": "black and white photo of the moon",
     "ImageUrl": "images/artwork/the_moon.png",
     "Type": "Photograph"
@@ -218,7 +218,7 @@
   {
     "Id": 28,
     "Name": "Shaded & Jaded",
-    "Price": 800.0,
+    "Price": 1200.0,
     "Prompt": "detailed black and white pencil sketch of a city skyline",
     "ImageUrl": "images/artwork/shaded_and_jaded.png",
     "Type": "Drawing"
@@ -266,7 +266,7 @@
   {
     "Id": 34,
     "Name": "Supernova",
-    "Price": 4100.0,
+    "Price": 7100.0,
     "Prompt": "abstract oil painting of a star going supernova",
     "ImageUrl": "images/artwork/supernova.png",
     "Type": "Painting"
@@ -274,7 +274,7 @@
   {
     "Id": 35,
     "Name": "Eye of the Beholder",
-    "Price": 3800.0,
+    "Price": 3850.0,
     "Prompt": "abstract symmetrical fluid painting",
     "ImageUrl": "images/artwork/eye_of_the_beholder.png",
     "Type": "Painting"
@@ -282,7 +282,7 @@
   {
     "Id": 36,
     "Name": "Autumn Valley",
-    "Price": 900.0,
+    "Price": 1900.0,
     "Prompt": "contemporary landscape oil painting",
     "ImageUrl": "images/artwork/autumn_valley.png",
     "Type": "Painting"
@@ -394,7 +394,7 @@
   {
     "Id": 50,
     "Name": "Innocence",
-    "Price": 950.0,
+    "Price": 1450.0,
     "Prompt": "detailed pencil sketch of a kitten",
     "ImageUrl": "images/artwork/innocence.png",
     "Type": "Drawing"
@@ -402,7 +402,7 @@
   {
     "Id": 51,
     "Name": "No Place Like Home",
-    "Price": 2600.0,
+    "Price": 2650.0,
     "Prompt": "detailed pencil sketch of a rug in front of a fireplace",
     "ImageUrl": "images/artwork/no_place_like_home.png",
     "Type": "Drawing"
@@ -410,7 +410,7 @@
   {
     "Id": 52,
     "Name": "Big Stretch",
-    "Price": 800.0,
+    "Price": 1100.0,
     "Prompt": "fountain pen drawing of a cat doing a big stretch",
     "ImageUrl": "images/artwork/big_stretch.png",
     "Type": "Drawing"

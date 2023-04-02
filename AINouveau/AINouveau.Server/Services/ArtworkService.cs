@@ -88,6 +88,13 @@ public class ArtworkService : IArtworkService
         return result;
     }
 
+    public async Task<List<Artwork>> GetSimilarArtwork(Artwork artwork)
+    {
+        return await dbContext.Artwork.Where(a => a.Id != artwork.Id && a.Type == artwork.Type)
+                                      .Take(4)
+                                      .ToListAsync();
+    }
+
     public async Task<Artwork?> GetArtwork(int id)
     {
         return await dbContext.Artwork.FindAsync(id);

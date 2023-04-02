@@ -1,10 +1,10 @@
 ﻿@inject NavigationManager navigationManager
 
 <div class="col-12 col-sm-6 col-md-3" @onclick="GoToDetailPage">
-    <div class="bg-offwhite border border-2 border-dark-subtle">
+    <div class="art-tile">
         <img class="w-100" src="@ImageUrl" />
         <p class="fs-5 fw-light text-center mb-0 mt-2">@Name</p>
-        <p class="fs-5 fw-light text-center mb-1">@Price.ToString("C0")</p>
+        <p class="fs-5 fw-light text-center pb-2 mb-1">@Price.ToString("C0")</p>
     </div>
 </div>
 
@@ -24,6 +24,6 @@
 
     void GoToDetailPage()
     {
-        navigationManager.NavigateTo($"/artwork/{Id}");
+        navigationManager.NavigateTo($"/artwork/{Id}", true);
     }
 }

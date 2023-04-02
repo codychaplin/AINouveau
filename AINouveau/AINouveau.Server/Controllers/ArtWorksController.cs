@@ -33,6 +33,15 @@ public class ArtworksController : ControllerBase
         return artworkResult == null ? NotFound() : artworkResult;
     }
 
+    // GET: api/artworks/similar
+    [HttpGet("similar")]
+    public async Task<ActionResult<IEnumerable<Artwork>>> GetSimilarArtwork(int id)
+    {
+        var artwork = await artworkService.GetArtwork(id);
+        var similarArtworks = await artworkService.GetSimilarArtwork(artwork);
+        return similarArtworks == null ? NotFound() : similarArtworks;
+    }
+
     // GET: api/artworks/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Artwork>> GetArtWork(int id)
