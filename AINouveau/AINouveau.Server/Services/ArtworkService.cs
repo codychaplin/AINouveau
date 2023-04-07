@@ -18,9 +18,9 @@ public class ArtworkService : IArtworkService
 
     async Task Init()
     {
+        // if dbset is empty, get Artwork list from json file and add to db
         if (!dbContext.Artwork.Any())
         {
-            // gets Artwork list from json file and adds list to db
             string jsonText = await File.ReadAllTextAsync("Data/Artworks.json");
             var artworks = JsonSerializer.Deserialize<List<Artwork>>(jsonText)!;
             await dbContext.Artwork.AddRangeAsync(artworks);
@@ -40,6 +40,7 @@ public class ArtworkService : IArtworkService
         await Init();
         var query = dbContext.Artwork.AsQueryable();
 
+        // filter by type
         if (!(painting && digitalArt && drawing && photograph))
         {
             if (painting || digitalArt || drawing || photograph)
@@ -51,12 +52,14 @@ public class ArtworkService : IArtworkService
             }
         }
 
+        // filter by price
         if (minPrice.HasValue)
             query = query.Where(a => a.Price >= minPrice.Value);
 
         if (maxPrice.HasValue)
             query = query.Where(a => a.Price <= maxPrice.Value);
 
+        // sort by SortOption
         List<Artwork> artworks = query.ToList();
         switch (option)
         {
@@ -78,19 +81,20 @@ public class ArtworkService : IArtworkService
                 break;
         }
 
+        // get count and pagination
         var count = query.Count();
         var queryForPage = artworks.Skip((pageNumber - 1) * PAGE_SIZE)
                                    .Take(PAGE_SIZE)
                                    .ToList();
 
-        var result = new ArtworkResult(queryForPage, count);
-
-        return result;
+        return new ArtworkResult(queryForPage, count);
     }
 
     public async Task<List<Artwork>> GetSimilarArtwork(Artwork artwork)
     {
+        // gets 4 random artworks of same type
         return await dbContext.Artwork.Where(a => a.Id != artwork.Id && a.Type == artwork.Type)
+                                      .OrderBy(a => EF.Functions.Random())
                                       .Take(4)
                                       .ToListAsync();
     }

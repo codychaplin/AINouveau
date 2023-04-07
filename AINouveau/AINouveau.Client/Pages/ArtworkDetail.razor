@@ -8,6 +8,10 @@
 
 <div class="container-lg pb-4">
 
+    <div class="row my-4" hidden="@IsErrorMessageHidden">
+        <p class="fs-2 text-danger text-center">@ErrorMessage</p>
+    </div>
+
     <!-- artwork and description -->
     <div class="row my-5">
         <div class="col-6" style="width: 550px; height: 550px;">
@@ -119,6 +123,9 @@
     [Parameter]
     public int Id { get; set; }
 
+    bool IsErrorMessageHidden = true;
+    string ErrorMessage = "";
+
     string ImageUrl { get; set; } = "images/artwork/default.png";
     bool IsBtnDisabled = false;
     Artwork Artwork = new();
@@ -133,27 +140,27 @@
             var client = ClientFactory.CreateClient();
             client.BaseAddress = uri;
             string url1 = $"api/artworks/{Id}";
-            HttpResponseMessage response1 = await client.GetAsync(url1);
-            if (response1.IsSuccessStatusCode)
+            HttpResponseMessage mainResponse = await client.GetAsync(url1);
+            if (mainResponse.IsSuccessStatusCode)
             {
-                var result = await response1.Content.ReadFromJsonAsync<Artwork>();
+                var result = await mainResponse.Content.ReadFromJsonAsync<Artwork>();
                 Artwork = result ?? throw new Exception("Could not get artwork from database");
             }
             else
             {
-                throw new Exception($"{response1.StatusCode}");
+                throw new Exception($"{mainResponse.StatusCode}");
             }
 
             string url2 = $"api/artworks/similar?id={Artwork.Id}";
-            HttpResponseMessage response2 = await client.GetAsync(url2);
-            if (response2.IsSuccessStatusCode)
+            HttpResponseMessage SimilarResponse = await client.GetAsync(url2);
+            if (SimilarResponse.IsSuccessStatusCode)
             {
-                var result = await response2.Content.ReadFromJsonAsync<List<Artwork>>();
-                SimilarArtworks = result ?? throw new Exception("Could not get artwork from database");
+                var result = await SimilarResponse.Content.ReadFromJsonAsync<List<Artwork>>();
+                SimilarArtworks = result ?? throw new Exception("Could not get similar artworks from database");
             }
             else
             {
-                throw new Exception($"{response2.StatusCode}");
+                throw new Exception($"{SimilarResponse.StatusCode}");
             }
 
             OpenAI = new OpenAIService(new OpenAiOptions()
@@ -163,7 +170,8 @@
         }
         catch (Exception ex)
         {
-            await js.InvokeAsync<object>("alert", $"Error: {ex.Message}");
+            ErrorMessage = $"Error: {ex.Message}";
+            IsErrorMessageHidden = false;
         }
     }
 
