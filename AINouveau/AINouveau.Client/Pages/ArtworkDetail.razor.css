@@ -1,4 +1,9 @@
-﻿.carousel-item {
+﻿.carousel-size {
+    height: 550px;
+    width: 550px;
+}
+
+.carousel-item {
     z-index: 1;
 }
 

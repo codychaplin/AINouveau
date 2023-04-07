@@ -14,7 +14,9 @@
 
     <!-- artwork and description -->
     <div class="row my-5">
-        <div class="col-6" style="width: 550px; height: 550px;">
+
+        <!-- carousel -->
+        <div class="col-6 mx-auto carousel-size">
             <div id="DetailCarousel" class="carousel slide">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#DetailCarousel" data-bs-slide-to="0" aria-label="Slide 1" aria-current="true" class="active"></button>
@@ -57,10 +59,12 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <p class="fst-italic text-center my-auto flex-wrap p-2 bg-offwhite">"@Artwork.Prompt"</p>
+            <p class="fst-italic text-center flex-wrap p-2 bg-offwhite">"@Artwork.Prompt"</p>
         </div>
-        <div class="col-6 ps-5 my-auto">
-            <p class="fs-xl">@Artwork.Name</p>
+
+        <!-- description -->
+        <div class="col-12 col-lg-5 col-xl-6 ps-5 my-auto">
+            <p class="fs-xl mt-5">@Artwork.Name</p>
             <label class="fs-4 text-uppercase">Details</label>
 
             <hr class="my-1" />
@@ -85,15 +89,15 @@
 <section class="bg-offwhite mt-4">
     <div class="container-lg">
         <div class="row py-5">
-            <div class="col-6 my-auto pe-5">
-                <p class="fs-1 text-end">Like the painting but don't love it?</p>
-                <p class="fs-4 text-end">
+            <div class="col-12 col-md-6 my-auto pe-5 text-center text-md-end">
+                <p class="fs-1">Like the painting but don't love it?</p>
+                <p class="fs-4">
                     Create a variation! Click the button below to generate an altered version of
                     "<i>@Artwork.Name</i>" to see if it suits you better.
                 </p>
-                <button class="btn btn-dark float-end" disabled="@IsBtnDisabled" onclick="@GenerateImage">Create Variation</button>
+                <button class="btn btn-dark mb-4" disabled="@IsBtnDisabled" onclick="@GenerateImage">Create Variation</button>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-md-6 text-center text-md-start">
                 <img class="img-fluid" src="@ImageUrl" alt="Generated Image" height="400" width="400" />
             </div>
         </div>
